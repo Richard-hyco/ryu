@@ -525,6 +525,7 @@ case 'menu':
 ➪ _${prefix}off_
 ➪ _${prefix}on_
 ➪ _${prefix}nsfw_
+➪ _${prefix}join_
 ➪ _${prefix}addgroup_
 ➪ _${prefix}bc_
 ➪ _${prefix}setcmd_
@@ -532,7 +533,8 @@ case 'menu':
 ➪ _${prefix}listcmd_ 
 ➪ _${prefix}shutdown_
 ➪ _${prefix}status_
-➪ _${prefix}leaveall_*
+➪ _${prefix}leaveall_
+➪ _${prefix}clearall_
 
 *MENU DOWNLOAD*
 ➪ _${prefix}ytsearch_ <query>
@@ -548,9 +550,8 @@ case 'menu':
 ➪ _${prefix}tiktokaudio_ <link>
 ➪ _${prefix}fb_ <link>
 ➪ _${prefix}brainly_ <query>
-➪ _${prefix}image_ <query>
+➪ _${prefix}gimage <query>
 ➪ _${prefix}anime_ <random>
-➪ _${prefix}pinterest_ <query>
 ➪ _${prefix}komiku_ <query>
 ➪ _${prefix}lirik_ <query>
 ➪ _${prefix}chara_ <query>
@@ -559,8 +560,6 @@ case 'menu':
 
 *MENU MAKER*
 ➪ _${prefix}sticker_
-➪ _${prefix}swm_ <author|packname>
-➪ _${prefix}take_ <author|packname>
 ➪ _${prefix}fdeface_
 ➪ _${prefix}emoji_*
 
@@ -568,7 +567,7 @@ case 'menu':
 ➪ _${prefix}toimg_
 ➪ _${prefix}tomp3_ (error)
 ➪ _${prefix}tomp4_
-➪ _${prefix}tourl_*
+➪ _${prefix}tourl_
 
 *MENU UP SW*
 ➪ _${prefix}upswteks_
@@ -579,7 +578,6 @@ case 'menu':
 ➪ _${prefix}fitnah_
 ➪ _${prefix}fitnahpc_
 ➪ _${prefix}teruskan_
-➪ _${prefix}kontak_*
 ➪ _${prefix}tebakgambar
 ➪ _${prefix}caklontong
 
@@ -589,26 +587,21 @@ case 'menu':
 ➪ _${prefix}hidetag_
 ➪ _${prefix}kontag_
 ➪ _${prefix}sticktag_
-➪ _${prefix}totag_*
+➪ _${prefix}totag_
 
 *MENU OTHER*
 ➪ _${prefix}ping_
+➪ _${prefix}kodepos_
 ➪ _${prefix}inspect_
-➪ _${prefix}join_
 ➪ _${prefix}caripesan_
-➪ _${prefix}self_
-➪ _${prefix}public_
 ➪ _${prefix}setthumb_
 ➪ _${prefix}settarget_
 ➪ _${prefix}linkwa query_
 ➪ _${prefix}setfakeimg_
 ➪ _${prefix}setreply_
 ➪ _${prefix}get_
-➪ _${prefix}jadibot_
-➪ _${prefix}listjadibot_
 ➪ _${prefix}voting_
 ➪ _${prefix}get_
-➪ _x_ <code>
 ➪ _${prefix}delvote_
 ➪ _vote_
 ➪ _devote_*
@@ -619,7 +612,7 @@ buttons = [{buttonId: `${prefix}owner`,buttonText:{displayText: 'OWNER'},type:1}
 
                buttonsMessage = {
                contentText: `${menu}`,
-               footerText: 'Versi: 1.0.8',
+               footerText: 'Versi: 1.0.9',
                buttons: buttons,
                headerType: 1
 }
@@ -628,7 +621,7 @@ buttons = [{buttonId: `${prefix}owner`,buttonText:{displayText: 'OWNER'},type:1}
                hexa.relayWAMessage(prep)
                break
                case 'nsfwmenu':
-                   reply('solo\nMenu Nsfw Baru 1')
+                   reply('solo\nnhentai with code\nMenu Nsfw Baru 2')
                    break
  case 'owner':
             case 'developer':
@@ -798,11 +791,12 @@ break
             reply('Pesan tidak ditemukan!')
             }           
             break
-    case 'lirik':
-            if(!q) return reply('lagu apa?')
-            let song = await hx.lirik(q)
-            sendMediaURL(from,song.thumb,song.lirik)
-            break
+            case 'lirik':   
+                		reply('Tunggu...')
+					teks = body.slice(7)
+					anu = await fetchJson(`https://api.lolhuman.xyz/api/lirik?apikey=chadson&query=${teks}`, {method: 'get'})
+					reply('Lirik dari lagu '+teks+' adalah :\n\n'+anu.result) 
+					break 
     case 'otaku':
             if(!q) return reply('judul animenya?')
             let anime = await hx.otakudesu(q)
@@ -838,14 +832,7 @@ ${anime.desc}\n\n*Link Batch* : ${anime.batch}\n*Link Download SD* : ${anime.bat
             let acak = im[Math.floor(Math.random() * im.length)]
             let li = await getBuffer(acak)
             await hexa.sendMessage(from,li,image,{quoted: mek})
-            break
-    case 'pinterest':
-            if(!q) return reply('gambar apa?')
-            let pin = await hx.pinterest(q)
-            let ac = pin[Math.floor(Math.random() * pin.length)]
-            let di = await getBuffer(ac)
-            await hexa.sendMessage(from,di,image,{quoted: mek})
-            break
+            break 
     case 'playstore':
         if (!isGroup) return reply(mess.only.group)
             if(!q) return reply('lu nyari apa?')
@@ -1260,7 +1247,6 @@ case 'upswaudio':
 	case 'play':
         if (!isGroup) return reply(mess.only.group)
 			if (args.length === 0) return reply(`Kirim perintah *${prefix}play* _Judul lagu yang akan dicari_`)
-            reply('Sedang Mencari.....')
             var srch = args.join('')
             
     		aramas = await yts(srch);
@@ -1474,7 +1460,7 @@ case 'upswaudio':
 			fakegroup(`Succes Mengganti Conversation Fake : ${q}`)
 			break
  case 'bc':
-
+    if (isOwner) return reply (`Maaf Hanya Owner`)
 hexa.updatePresence(from, Presence.composing)
 
 					if (!isOwner && !mek.key.fromMe) return reply(mess.only)
@@ -1696,7 +1682,40 @@ hexa.cmd.on('asupan', async (data) => {
             hexa.sendMessage(from,{url:images},image,{quoted:mek})
             });
             break
+            case 'gimage':
+				reply('Tunggu Ya')
+                    if (args.length == 0) return reply(`Example: ${prefix + command} loli kawaii`)
+                    query = args.join(" ")
+                    get_result = await fetchJson(`https://api.lolhuman.xyz/api/gimage2?apikey=chadson&query=${query}`)
+                    get_result = get_result.result
+                    for (var x = 0; x <= 6; x++) {
+                        var ini_buffer = await getBuffer(get_result[x])
+                        hexa.sendMessage(from, ini_buffer, image)
+                    }
+                    break
+                    case 'kodepos':
+                        reply('Tunggu Ya')
+                            if (args.length == 0) return reply(`Example: ${prefix + command} Slemanan or ${prefix + command} 66154`)
+                            daerah = args.join(" ")
+                            get_result = await fetchJson(`http://api.lolhuman.xyz/api/kodepos?apikey=chadson&query=${daerah}`)
+                            get_result = get_result.result[0]
+                            ini_txt = `Provinsi : ${get_result.province}\n`
+                            ini_txt += `Kabupaten : ${get_result.city}\n`
+                            ini_txt += `Kecamatan : ${get_result.subdistrict}\n`
+                            ini_txt += `Kelurahan : ${get_result.urban}\n`
+                            ini_txt += `Kode Pos : ${get_result.postalcode}`
+                            reply(ini_txt)
 
+                            break
+                            case 'clearall':
+					if (isOwner) return reply('hanya owner')
+					anu = await didin.chats.all()
+					hexa.setMaxListeners(25)
+					for (let _ of anu) {
+						hexa.deleteChat(_.jid)
+					}
+					reply('SUKSES MENGHAPUS SEMUA CHAT')
+					break
  	case 'tiktok':
         if (!isGroup) return reply(mess.only.group)
  		if (!isUrl(args[0]) && !args[0].includes('tiktok.com')) return reply(mess.Iv)
@@ -1776,6 +1795,7 @@ hexa.cmd.on('asupan', async (data) => {
 	
     case 'join':
             try {
+                if (isOwner) return reply (`Maaf Hanya Owner`)
             if (!isUrl(args[0]) && !args[0].includes('whatsapp.com')) return reply(mess.Iv)
             hen = args[0]
             if (!q) return fakestatus('Masukan link group')
@@ -1816,6 +1836,14 @@ hexa.cmd.on('asupan', async (data) => {
                  naked = await getBuffer(randKey.result)
                  hexa.sendMessage(from, naked, image, {quoted: mek, caption: ' *SHE NEED YOUR F*CK*'})
 				break
+                case 'nhentai':
+                    husw = body.slice(9)
+                        reply('Tunggu Ya')
+                        anu = await fetchJson(`https://api.lolhuman.xyz/api/nhentaipdf/${husw}?apikey=chadson`, {method: 'get'})
+                        if (anu.error) return reply(anu.error)
+                        bufferjj = await getBuffer(anu.result)
+                        hexa.sendMessage(from, bufferjj, document, {mimetype: 'document/pdf', quoted: mek})
+                        break
                 case 'req':
                 if (args.length < 1) return reply(`Mau request apa?`)
                      const cfrr = body.slice(4)
