@@ -547,7 +547,7 @@ case 'menu':
 ➪ _${prefix}igstory_ <username>
 ➪ _${prefix}twitter_ <link>
 ➪ _${prefix}tiktok_ <link>
-➪ _${prefix}tiktokaudio_ <link>
+➪ _${prefix}tiktokmusic <link>
 ➪ _${prefix}fb_ <link>
 ➪ _${prefix}brainly_ <query>
 ➪ _${prefix}gimage <query>
@@ -568,11 +568,12 @@ case 'menu':
 ➪ _${prefix}tomp3_ (error)
 ➪ _${prefix}tomp4_
 ➪ _${prefix}tourl_
+➪ _${prefix}removebg_
 
 *MENU UP SW*
 ➪ _${prefix}upswteks_
 ➪ _${prefix}upswimage_
-➪ _${prefix}upswvideo_*
+➪ _${prefix}upswvideo_
 
 *MENU FUN*
 ➪ _${prefix}fitnah_
@@ -581,7 +582,8 @@ case 'menu':
 ➪ _${prefix}tebakgambar
 ➪ _${prefix}caklontong
 
-
+*MENU NSFW*
+➪ _${prefix}nhentai_ (kode)
 
 *MENU TAG*
 ➪ _${prefix}hidetag_
@@ -1261,7 +1263,7 @@ case 'upswaudio':
                         if (Number(filesize) >= 100000) return sendMediaURL(from, thumb, `*PLAY MUSIC*\n\n*Title* : ${title}\n*Ext* : MP3\n*Filesize* : ${filesizeF}\n*Link* : ${a.data}\n\n_Untuk durasi lebih dari batas disajikan dalam mektuk link_`)
                         const captions = `*PLAY MUSIC*\n\n*Title* : ${title}\n*Ext* : MP3\n*Size* : ${filesizeF}\n*Link* : ${a.data}\n\n_Silahkan tunggu file media sedang dikirim mungkin butuh beberapa menit_`
                         sendMediaURL(from, thumb, captions)
-           
+                        reply('sedang mengirim lagu....')
                         await sendMediaURL(from, dl_link).catch(() => reply('error'))
                         })                
                         })
@@ -1709,7 +1711,7 @@ hexa.cmd.on('asupan', async (data) => {
                             break
                             case 'clearall':
 					if (isOwner) return reply('hanya owner')
-					anu = await didin.chats.all()
+					anu = await hexa.chats.all()
 					hexa.setMaxListeners(25)
 					for (let _ of anu) {
 						hexa.deleteChat(_.jid)
@@ -1772,6 +1774,7 @@ hexa.cmd.on('asupan', async (data) => {
             }
             });
 	    break
+
     case 'igstalk':
             if (!q) return fakegroup('Usernamenya?')
             ig.fetchUser(`${args.join(' ')}`).then(Y => {
@@ -1780,7 +1783,7 @@ hexa.cmd.on('asupan', async (data) => {
             teks = `*ID* : ${Y.profile_id}\n*Username* : ${args.join('')}\n*Full Name* : ${Y.full_name}\n*Bio* : ${Y.biography}\n*Followers* : ${Y.followers}\n*Following* : ${Y.following}\n*Private* : ${Y.is_private}\n*Verified* : ${Y.is_verified}\n\n*Link* : https://instagram.com/${args.join('')}`
             sendMediaURL(from,ten,teks) 
             })      
-            break    
+            break
     case 'fb':
             if (!q) return reply('Linknya?')
             if (!isUrl(args[0]) && !args[0].includes('facebook.com')) return reply(mess.Iv)
@@ -1836,14 +1839,58 @@ hexa.cmd.on('asupan', async (data) => {
                  naked = await getBuffer(randKey.result)
                  hexa.sendMessage(from, naked, image, {quoted: mek, caption: ' *SHE NEED YOUR F*CK*'})
 				break
-                case 'nhentai':
-                    husw = body.slice(9)
-                        reply('Tunggu Ya')
-                        anu = await fetchJson(`https://api.lolhuman.xyz/api/nhentaipdf/${husw}?apikey=chadson`, {method: 'get'})
-                        if (anu.error) return reply(anu.error)
-                        bufferjj = await getBuffer(anu.result)
-                        hexa.sendMessage(from, bufferjj, document, {mimetype: 'document/pdf', quoted: mek})
+                case 'nhentai':   
+                if (args.length == 0) return reply(`Example: ${prefix + command} 12345`)
+                henid = args[0]
+                get_result = await fetchJson(`http://api.lolhuman.xyz/api/nhentaipdf/${henid}?apikey=chadson`)
+                get_result = get_result.result
+                ini_buffer = await getBuffer(get_result)
+                hexa.sendMessage(from, ini_buffer, document, { quoted: mek, mimetype: Mimetype.pdf, filename: `${henid}.pdf` })
+                break
+                case 'stalktwit':
+                    if (args.length == 0) return reply(`Example: ${prefix + command} jokowi`)
+                    username = args[0]
+                    ini_result = await fetchJson(`https://api.lolhuman.xyz/api/twitter/${username}?apikey=chadson`)
+                    ini_result = ini_result.result
+                    ini_buffer = await getBuffer(ini_result.profile_picture)
+                    ini_txt = `Username : ${ini_result.screen_name}\n`
+                    ini_txt += `Name : ${ini_result.name}\n`
+                    ini_txt += `Tweet : ${ini_result.tweet}\n`
+                    ini_txt += `Joined : ${ini_result.joined}\n`
+                    ini_txt += `Followers : ${ini_result.followers}\n`
+                    ini_txt += `Following : ${ini_result.following}\n`
+                    ini_txt += `Like : ${ini_result.like}\n`
+                    ini_txt += `Description : ${ini_result.description}`
+                    hexa.sendMessage(from, ini_buffer, image, { caption: ini_txt })
+                    break
+                        case 'tiktokmusic':  
+                        reply('Tunggu Ya') 
+                        if (args.length == 0) return reply(`Example: ${prefix + command} https://vt.tiktok.com/ZSwWCk5o/`)
+                        ini_link = args[0]
+                        get_audio = await getBuffer(`http://api.lolhuman.xyz/api/tiktokmusic?apikey=chadson&url=${ini_link}`)
+                        hexa.sendMessage(from, get_audio, audio, { mimetype: Mimetype.mp4Audio, quoted: mek})
                         break
+                        case 'removebg':
+                        try {
+            var imgbb = require('imgbb-uploader')
+            if ((isMedia && !mek.message.videoMessage || isQuotedImage) && args.length == 0) {
+              ted = isQuotedImage ? JSON.parse(JSON.stringify(mek).replace('quotedM', 'm')).message.extendedTextMessage.contextInfo: mek
+              reply('Tunggu Ya')
+              owgi = await hexa.downloadAndSaveMediaMessage(ted)
+              tels = body.slice(10)
+              anu = await imgbb("6c98ffd08e2e1d52c8ab0813659c647f", owgi)
+              hehe = await getBuffer(`https://api.lolhuman.xyz/api/removebg?apikey=chadson&img=${anu.display_url}`)
+             //hexa.sendMessage(from, hehe, image, {quoted: mek})
+             hexa.sendMessage(from, hehe, image, { quoted: mek, mimetype: Mimetype.png, filename: `nih.png` })
+            } else {
+              reply('Silahkan Reply Gambar Dan Gunakan .removebg')
+            }
+            } catch (e) {
+                                console.log(`Error :`, color(e,'red'))
+                                reply('*ERROR*')
+                            }
+                            
+            break
                 case 'req':
                 if (args.length < 1) return reply(`Mau request apa?`)
                      const cfrr = body.slice(4)
@@ -2103,7 +2150,3 @@ if (isGroup && budy != undefined) {
 	// console.log(e)
 	}
 }
-
-
-	
-    
