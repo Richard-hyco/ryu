@@ -1784,6 +1784,15 @@ hexa.cmd.on('asupan', async (data) => {
             sendMediaURL(from,ten,teks) 
             })      
             break
+	     case 'igstalk2':
+              
+                  teks = body.slice(10)
+                  anu = await fetchJson(`https://api.lolhuman.xyz/api/stalkig/${teks}?apikey=chadson`, {method: 'get'})
+                  reply('「❗」Sabar Lagi Stalking IG nya kak')
+                  buffer = await getBuffer(anu.result.photo_profile)
+                  hasil = `Stalking Sukses!\n${teks} \n\n *Username?* : _${anu.result.username}_ \n *Nama??* : _${anu.result.fullname}_ \n *Jumlah Follower??﹦?* : _${anu.result.followers}_ \n *Jumlah Following?* : _${anu.result.following}_ \n *Jumlah Post?* : _${anu.result.posts}_ \n *Biografi?? :* _${anu.result.bio}`
+                 hexa.sendMessage(from, buffer, image, {quoted: mek, caption: hasil})
+                break 
     case 'fb':
             if (!q) return reply('Linknya?')
             if (!isUrl(args[0]) && !args[0].includes('facebook.com')) return reply(mess.Iv)
