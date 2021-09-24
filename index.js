@@ -678,7 +678,7 @@ case 'buttons1':
     let wipu = (await axios.get(`https://raw.githubusercontent.com/Arya-was/endak-tau/main/${command}.json`)).data
     let wipi = wipu[Math.floor(Math.random() * (wipu.length))]
     fs.writeFileSync(`./image/anime/${sender}.jpeg`, await getBuffer(wipi))
-    const gambra = await hexa.prepareMessage(from, fs.readFileSync(`./image/anime/${sender}.jpeg`), MessageType.image)
+    const gambra = await hexa.prepareMessage(from, fs.readFileSync(`./image/anime/${sender}.jpeg`), MessageType.image, { mimetype: Mimetype.png, caption: 'caption' })
     const buttonsss = [{buttonId:`${prefix+command}`,buttonText: {displayText: '➡️ NEXT ➡️'}, type: 1}]
     const ButtonsMessages = {
     contentText: `Wangy Wangyyy`,
