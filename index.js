@@ -668,6 +668,29 @@ case 'buttons1':
               res = await y2mateV(teks)
               sendFileFromUrl(res[0].link, video, {quoted: mek, mimetype: 'video/mp4', filename: res[0].output})
               break
+	       case 'waifu':
+   case 'loli':
+   case 'husbu':
+   case 'milf':
+   case 'cosplay':
+   case 'wallml':{
+    reply('Bentarr')
+    let wipu = (await axios.get(`https://raw.githubusercontent.com/Arya-was/endak-tau/main/${command}.json`)).data
+    let wipi = wipu[Math.floor(Math.random() * (wipu.length))]
+    fs.writeFileSync(`./image/anime/${sender}.jpeg`, await getBuffer(wipi))
+    const gambra = await hexa.prepareMessage(from, fs.readFileSync(`./image/anime/${sender}.jpeg`), MessageType.image, {thumbnail: gambar})
+    const buttonsss = [{buttonId:`${prefix+command}`,buttonText: {displayText: '➡️ NEXT ➡️'}, type: 1}]
+    const ButtonsMessages = {
+    contentText: `Wangy Wangyyy`,
+    buttons: buttonsss,
+    footerText: `Klik Next Untuk Melanjutkan Ke Gambar Berikutnya`,
+    headerType: 4,
+    imageMessage: gambra.message.imageMessage
+    }
+    await hexa.sendMessage(from, ButtonsMessages, MessageType.buttonsMessage, {quoted : mek})
+    fs.unlinkSync(`./image/anime/${sender}.jpeg`)
+    }
+    break
 //------------------< Sticker Cmd >-------------------
        case 'addcmd': 
        case 'setcmd':
