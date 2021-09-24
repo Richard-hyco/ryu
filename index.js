@@ -37,6 +37,7 @@ const { EmojiAPI } = require("emoji-api");
 const ig = require('insta-fetcher')
 const emoji = new EmojiAPI()
 const fetch = require('node-fetch');
+const Math_js = require('mathjs')
 const phoneNum = require('awesome-phonenumber')
 const gis = require('g-i-s');
 const got = require("got");
@@ -565,10 +566,15 @@ case 'menu':
 
 *MENU CONVERT*
 ➪ _${prefix}toimg_
-➪ _${prefix}tomp3_ (error)
+➪ _${prefix}tomp3_ 
 ➪ _${prefix}tomp4_
 ➪ _${prefix}tourl_
 ➪ _${prefix}removebg_
+➪ _${prefix}bass_
+➪ _${prefix}slow_
+➪ _${prefix}fast_
+➪ _${prefix}robot_
+➪ _${prefix}vibra_
 
 *MENU UP SW*
 ➪ _${prefix}upswteks_
@@ -580,7 +586,9 @@ case 'menu':
 ➪ _${prefix}fitnahpc_
 ➪ _${prefix}teruskan_
 ➪ _${prefix}tebakgambar
-➪ _${prefix}caklontong
+➪ _${prefix}caklontong_
+➪ _${prefix}waifu / milf / loli_ (get random image,kadang bug)
+
 
 *MENU NSFW*
 ➪ _${prefix}nhentai_ (kode)
@@ -593,6 +601,7 @@ case 'menu':
 
 *MENU OTHER*
 ➪ _${prefix}ping_
+➪ _${prefix}kalku_ (kalkulator)
 ➪ _${prefix}kodepos_
 ➪ _${prefix}inspect_
 ➪ _${prefix}caripesan_
@@ -668,29 +677,6 @@ case 'buttons1':
               res = await y2mateV(teks)
               sendFileFromUrl(res[0].link, video, {quoted: mek, mimetype: 'video/mp4', filename: res[0].output})
               break
-	       case 'waifu':
-   case 'loli':
-   case 'husbu':
-   case 'milf':
-   case 'cosplay':
-   case 'wallml':{
-    reply('Bentarr')
-    let wipu = (await axios.get(`https://raw.githubusercontent.com/Arya-was/endak-tau/main/${command}.json`)).data
-    let wipi = wipu[Math.floor(Math.random() * (wipu.length))]
-    fs.writeFileSync(`./image/anime/${sender}.jpeg`, await getBuffer(wipi))
-    const gambra = await hexa.prepareMessage(from, fs.readFileSync(`./image/anime/${sender}.jpeg`), MessageType.image, { mimetype: Mimetype.png, caption: 'caption' })
-    const buttonsss = [{buttonId:`${prefix+command}`,buttonText: {displayText: '➡️ NEXT ➡️'}, type: 1}]
-    const ButtonsMessages = {
-    contentText: `Wangy Wangyyy`,
-    buttons: buttonsss,
-    footerText: `Klik Next Untuk Melanjutkan Ke Gambar Berikutnya`,
-    headerType: 4,
-    imageMessage: gambra.message.imageMessage
-    }
-    await hexa.sendMessage(from, ButtonsMessages, MessageType.buttonsMessage, {quoted : mek})
-    fs.unlinkSync(`./image/anime/${sender}.jpeg`)
-    }
-    break
 //------------------< Sticker Cmd >-------------------
        case 'addcmd': 
        case 'setcmd':
@@ -947,9 +933,11 @@ ${anime.desc}\n\n*Link Batch* : ${anime.batch}\n*Link Download SD* : ${anime.bat
             member.map(async adm => {
             mem.push(adm.id.replace('c.us', 's.whatsapp.net'))
             })
+           
             var options = {
                 contextInfo: { mentionedJid: mem },
                 quoted: mek
+                
             }
             ini_buffer = fs.readFileSync(file)
             hexa.sendMessage(from, ini_buffer, sticker, options)
@@ -1012,6 +1000,7 @@ ${anime.desc}\n\n*Link Batch* : ${anime.batch}\n*Link Download SD* : ${anime.bat
           reply(`reply gambar/sticker/audio/video dengan caption ${prefix}totag`)
         }
         break
+        
     case 'fitnah':
         if (!isGroup) return reply(mess.only.group)
             if (args.length < 1) return reply(`Usage :\n${prefix}fitnah [@tag|pesan|balasanbot]]\n\nEx : \n${prefix}fitnah @tagmember|hai|hai juga`)
@@ -1268,6 +1257,29 @@ case 'upswaudio':
 			}
 			hexa.sendMessage(from, optionshidetag, text)
 			break
+            case 'waifu':
+   case 'loli':
+   case 'husbu':
+   case 'milf':
+   case 'cosplay':
+   case 'wallml':{
+    reply('Bentarr')
+    let wipu = (await axios.get(`https://raw.githubusercontent.com/Arya-was/endak-tau/main/${command}.json`)).data
+    let wipi = wipu[Math.floor(Math.random() * (wipu.length))]
+    fs.writeFileSync(`./image/anime/${sender}.jpeg`, await getBuffer(wipi))
+    const gambra = await hexa.prepareMessage(from, fs.readFileSync(`./image/anime/${sender}.jpeg`), MessageType.image, { mimetype: Mimetype.png, caption: 'caption' })
+    const buttonsss = [{buttonId:`${prefix+command}`,buttonText: {displayText: '➡️ NEXT ➡️'}, type: 1}]
+    const ButtonsMessages = {
+    contentText: `Wangy Wangyyy`,
+    buttons: buttonsss,
+    footerText: `Klik Next Untuk Melanjutkan Ke Gambar Berikutnya`,
+    headerType: 4,
+    imageMessage: gambra.message.imageMessage
+    }
+    await hexa.sendMessage(from, ButtonsMessages, MessageType.buttonsMessage, {quoted : mek})
+    fs.unlinkSync(`./image/anime/${sender}.jpeg`)
+    }
+    break
 
 	case 'play':
         if (!isGroup) return reply(mess.only.group)
@@ -1286,7 +1298,6 @@ case 'upswaudio':
                         if (Number(filesize) >= 100000) return sendMediaURL(from, thumb, `*PLAY MUSIC*\n\n*Title* : ${title}\n*Ext* : MP3\n*Filesize* : ${filesizeF}\n*Link* : ${a.data}\n\n_Untuk durasi lebih dari batas disajikan dalam mektuk link_`)
                         const captions = `*PLAY MUSIC*\n\n*Title* : ${title}\n*Ext* : MP3\n*Size* : ${filesizeF}\n*Link* : ${a.data}\n\n_Silahkan tunggu file media sedang dikirim mungkin butuh beberapa menit_`
                         sendMediaURL(from, thumb, captions)
-                        reply('sedang mengirim lagu....')
                         await sendMediaURL(from, dl_link).catch(() => reply('error'))
                         })                
                         })
@@ -1316,7 +1327,77 @@ case 'upswaudio':
                         } catch (err) {
                         reply(mess.error.api)
                         }
-                   break      
+                   break    
+                   //=={ CONVERT }==\\
+case 'bass':    
+encmedia = JSON.parse(JSON.stringify(mek).replace('quotedM','m')).message.extendedTextMessage.contextInfo
+media = await hexa.downloadAndSaveMediaMessage(encmedia)
+ran = getRandom('.mp3')
+exec(`ffmpeg -i ${media} -af equalizer=f=94:width_type=o:width=2:g=30 ${ran}`, (err, stderr, stdout) => {
+fs.unlinkSync(media)
+if (err) return reply('Error!')
+hah = fs.readFileSync(ran)
+hexa.sendMessage(from, hah, audio, {mimetype: 'audio/mp4', ptt:true, quoted: mek})
+fs.unlinkSync(ran)
+})  	
+break
+case 'slowmo': case 'slow':
+try {
+encmedia = JSON.parse(JSON.stringify(mek).replace('quotedM','m')).message.extendedTextMessage.contextInfo
+media = await hexa.downloadAndSaveMediaMessage(encmedia)
+ran = getRandom('.mp3')
+exec(`ffmpeg -i ${media} -filter:a "atempo=0.7,asetrate=44100" ${ran}`, (err, stderr, stdout) => {
+fs.unlinkSync(media)
+if (err) return reply('Error!')
+uhh = fs.readFileSync(ran)
+hexa.sendMessage(from, uhh, audio, {mimetype: 'audio/mp4', ptt:true, quoted: mek,duration:999999999999})
+fs.unlinkSync(ran)
+})
+	 } catch (e) {	
+	reply(mess.error)
+	}  
+break
+      case 'fast':
+try {
+	encmedia = JSON.parse(JSON.stringify(mek).replace('quotedM','m')).message.extendedTextMessage.contextInfo
+	media = await hexa.downloadAndSaveMediaMessage(encmedia)
+	ran = getRandom('.mp3')
+	exec(`ffmpeg -i ${media} -filter:a "atempo=1.3,asetrate=43000" ${ran}`, (err, stderr, stdout) => {
+fs.unlinkSync(media)
+if (err) return reply('Error!')
+hah = fs.readFileSync(ran)
+hexa.sendMessage(from, hah, audio, {mimetype: 'audio/mp4', ptt:true, quoted: mek})
+fs.unlinkSync(ran)
+	})
+	} catch (e) {	
+	reply(mess.error)
+	}  
+break
+case 'robot':
+	encmedia = JSON.parse(JSON.stringify(mek).replace('quotedM','m')).message.extendedTextMessage.contextInfo
+	media = await hexa.downloadAndSaveMediaMessage(encmedia)
+	ran = getRandom('.mp3')
+	exec(`ffmpeg -i ${media} -filter_complex "afftfilt=real='hypot(re,im)*sin(0)':imag='hypot(re,im)*cos(0)':win_size=512:overlap=0.75" ${ran}`, (err, stderr, stdout) => {
+fs.unlinkSync(media)
+if (err) return reply('Error!')
+hah = fs.readFileSync(ran)
+hexa.sendMessage(from, hah, audio, {mimetype: 'audio/mp4', ptt: true, quoted: mek})
+fs.unlinkSync(ran)
+	})
+break  
+case 'vibra':
+case 'vibrato':
+	encmedia = JSON.parse(JSON.stringify(mek).replace('quotedM','m')).message.extendedTextMessage.contextInfo
+	media = await hexa.downloadAndSaveMediaMessage(encmedia)
+	ran = getRandom('.mp3')
+	exec(`ffmpeg -i ${media} -filter_complex "vibrato=f=16" ${ran}`, (err, stderr, stdout) => {
+fs.unlinkSync(media)
+if (err) return reply('Error!')
+hah = fs.readFileSync(ran)
+hexa.sendMessage(from, hah, audio, {mimetype: 'audio/mp4', ptt: true, quoted: mek})
+fs.unlinkSync(ran)
+	})
+break
     case 'sticker': 
     case 'stiker':
     case 'sg':
@@ -1431,21 +1512,8 @@ case 'upswaudio':
                 
 					break
                
-    case 'toimg':
-			if (!isQuotedSticker) return reply('𝗥𝗲𝗽𝗹𝘆/𝘁𝗮𝗴 𝘀𝘁𝗶𝗰𝗸𝗲𝗿 !')
-			reply(mess.wait)
-			encmedia = JSON.parse(JSON.stringify(mek).replace('quotedM','m')).message.extendedTextMessage.contextInfo
-			media = await hexa.downloadAndSaveMediaMessage(encmedia)
-			ran = getRandom('.png')
-			exec(`ffmpeg -i ${media} ${ran}`, (err) => {
-			fs.unlinkSync(media)
-			if (err) return reply('Yah gagal, coba ulangi ^_^')
-			buffer = fs.readFileSync(ran)
-			fakethumb(buffer,'NIH')
-			fs.unlinkSync(ran)
-			})
-			break
-            case 'toimg2':
+
+            case 'toimg':
 				
 				hexa.updatePresence(from, Presence.composing)
 				if (!isQuotedSticker) return reply('Reply/tag sticker !')
@@ -1546,6 +1614,15 @@ hexa.updatePresence(from, Presence.composing)
 					}
 
 					break
+                    case 'kalkulator':
+case 'kalku':{
+if (mek.message.extendedTextMessage === undefined || mek.message.extendedTextMessage === null) {
+reply(`${Math_js.evaluate(q.replace("×","*").replace("x","*").replace("X","*").replace("÷","/").replace(":","/").replace("kali","*").replace("bagi","/").replace("tambah","+").replace("tamba","+").replace("kurang","-").replace("kurangi","-"))}`)
+} else {
+reply(`${Math_js.evaluate(mek.message.extendedTextMessage.contextInfo.quotedMessage.conversation)}`)
+}
+}
+break
  case 'youtubedl':
              if (args.length < 1) return reply('Link Nya Mana?')
              if(!isUrl(args[0]) && !args[0].includes('youtu')) return reply(mess.error.Iv)
@@ -1798,24 +1875,17 @@ hexa.cmd.on('asupan', async (data) => {
             });
 	    break
 
-    case 'igstalk':
-            if (!q) return fakegroup('Usernamenya?')
-            ig.fetchUser(`${args.join(' ')}`).then(Y => {
-            console.log(`${args.join(' ')}`)
-            ten = `${Y.profile_pic_url_hd}`
-            teks = `*ID* : ${Y.profile_id}\n*Username* : ${args.join('')}\n*Full Name* : ${Y.full_name}\n*Bio* : ${Y.biography}\n*Followers* : ${Y.followers}\n*Following* : ${Y.following}\n*Private* : ${Y.is_private}\n*Verified* : ${Y.is_verified}\n\n*Link* : https://instagram.com/${args.join('')}`
-            sendMediaURL(from,ten,teks) 
-            })      
-            break
-	     case 'igstalk2':
+   
+            case 'igstalk':
               
-                  teks = body.slice(10)
+                  teks = body.slice(9)
                   anu = await fetchJson(`https://api.lolhuman.xyz/api/stalkig/${teks}?apikey=chadson`, {method: 'get'})
                   reply('「❗」Sabar Lagi Stalking IG nya kak')
                   buffer = await getBuffer(anu.result.photo_profile)
-                  hasil = `Stalking Sukses!\n${teks} \n\n *Username?* : _${anu.result.username}_ \n *Nama??* : _${anu.result.fullname}_ \n *Jumlah Follower??﹦?* : _${anu.result.followers}_ \n *Jumlah Following?* : _${anu.result.following}_ \n *Jumlah Post?* : _${anu.result.posts}_ \n *Biografi?? :* _${anu.result.bio}`
+                  hasil = `Stalking Sukses!\n${teks} \n\n *Username* : _${anu.result.username}_ \n *Nama* : _${anu.result.fullname}_ \n *Jumlah Follower* : _${anu.result.followers}_ \n *Jumlah Following* : _${anu.result.following}_ \n *Jumlah Post* : _${anu.result.posts}_ \n *Biografi :* _${anu.result.bio}`
                  hexa.sendMessage(from, buffer, image, {quoted: mek, caption: hasil})
                 break 
+
     case 'fb':
             if (!q) return reply('Linknya?')
             if (!isUrl(args[0]) && !args[0].includes('facebook.com')) return reply(mess.Iv)
@@ -2182,3 +2252,7 @@ if (isGroup && budy != undefined) {
 	// console.log(e)
 	}
 }
+
+
+	
+    
