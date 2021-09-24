@@ -1270,7 +1270,7 @@ case 'upswaudio':
     fs.writeFileSync(`./image/anime/${sender}.jpeg`, await getBuffer(wipi))
 	  
 
-    const gambra = await hexa.prepareMessage(from, fs.readFileSync(`./image/anime/${sender}.jpeg`), MessageType.image)
+    const gambra = await hexa.prepareMessage(from, fs.readFileSync(`./image/anime/${sender}.jpeg`), MessageType.image, {thumbnail : null})
     const buttonsss = [{buttonId:`${prefix+command}`,buttonText: {displayText: '➡️ NEXT ➡️'}, type: 1}]
     const ButtonsMessages = {
     contentText: `Wangy Wangyyy`,
