@@ -1,1 +1,1 @@
-Worker: npm install jimp && npm start
+Worker: npm install jimp && npm install mathjs && npm start
