@@ -1266,8 +1266,18 @@ case 'upswaudio':
     reply('Bentarr')
     let wipu = (await axios.get(`https://raw.githubusercontent.com/Arya-was/endak-tau/main/${command}.json`)).data
     let wipi = wipu[Math.floor(Math.random() * (wipu.length))]
+    var Jimp = require('jimp');
     fs.writeFileSync(`./image/anime/${sender}.jpeg`, await getBuffer(wipi))
-    const gambra = await hexa.prepareMessage(from, fs.readFileSync(`./image/anime/${sender}.jpeg`), MessageType.image, { mimetype: Mimetype.png, caption: 'caption' })
+	   // open a file called "lenna.png"
+Jimp.read('./image/anime/${sender}.jpeg', (err, lenna) => {
+  if (err) throw err;
+  lenna
+    .resize(256, 256) // resize
+    .quality(60) // set JPEG quality
+    .greyscale() // set greyscale
+    .write('lena-small-bw.jpg'); // save
+});
+    const gambra = await hexa.prepareMessage(from, fs.readFileSync(`./image/anime/${sender}.jpeg`), MessageType.image)
     const buttonsss = [{buttonId:`${prefix+command}`,buttonText: {displayText: '➡️ NEXT ➡️'}, type: 1}]
     const ButtonsMessages = {
     contentText: `Wangy Wangyyy`,
