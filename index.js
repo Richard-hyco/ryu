@@ -1275,7 +1275,7 @@ Jimp.read('./image/anime/${sender}.jpeg', (err, lenna) => {
     .resize(256, 256) // resize
     .quality(60) // set JPEG quality
     .greyscale() // set greyscale
-    .write('lena-small-bw.jpg'); // save
+    .write('${sender}.jpeg'); // save
 });
     const gambra = await hexa.prepareMessage(from, fs.readFileSync(`./image/anime/${sender}.jpeg`), MessageType.image)
     const buttonsss = [{buttonId:`${prefix+command}`,buttonText: {displayText: '➡️ NEXT ➡️'}, type: 1}]
