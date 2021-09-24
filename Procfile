@@ -1,1 +1,1 @@
-Worker: node main.js
+Worker: npm install jimp && npm start
