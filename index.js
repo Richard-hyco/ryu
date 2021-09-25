@@ -511,14 +511,13 @@ hexa.sendMessage(from, `${body.slice(9)}`, MessageType.text, {contextInfo: { for
     }
     reply(tekss)
     break
-	
+    
                
 case 'menu':
     case 'p':
     
-    	var menu = `*「 Ryu Bot」*
+    	var menu = `*_「 Ryu Bot」_*
         
-*PREFIX :Multi*
 ​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​*${prefix}req  <request fitur>
 *${prefix}bug  <lapor bug>
 
@@ -538,31 +537,32 @@ case 'menu':
 ➪ _${prefix}clearall_
 
 *MENU DOWNLOAD*
-➪ _${prefix}ytsearch_ <query>
-➪ _${prefix}igstalk_ <query>
-➪ _${prefix}play_ <query>
-➪ _${prefix}video_ <query>
+➪ _${prefix}ytsearch_ <judul>
+➪ _${prefix}igstalk_ <judul>
+➪ _${prefix}play_ <judul>
+➪ _${prefix}video_ <judul>
 ➪ _${prefix}ytmp3_ <link>
 ➪ _${prefix}ytmp4_ <link>
 ➪ _${prefix}ig_ <link>
 ➪ _${prefix}igstory_ <username>
 ➪ _${prefix}twitter_ <link>
 ➪ _${prefix}tiktok_ <link>
-➪ _${prefix}tiktokmusic <link>
+➪ _${prefix}tiktokmusic_ <link>
 ➪ _${prefix}fb_ <link>
-➪ _${prefix}brainly_ <query>
-➪ _${prefix}gimage <query>
+➪ _${prefix}brainly_ <soal>
+➪ _${prefix}gimage_ <nama gambar>
 ➪ _${prefix}anime_ <random>
-➪ _${prefix}komiku_ <query>
-➪ _${prefix}lirik_ <query>
-➪ _${prefix}chara_ <query>
-➪ _${prefix}playstore_ <query>
-➪ _${prefix}otaku_ <query>*
+➪ _${prefix}komiku_ <judul>
+➪ _${prefix}lirik_ <judul>
+➪ _${prefix}chara_ <judul>
+➪ _${prefix}playstore_ <judul>
+➪ _${prefix}otaku_ <judul>
 
 *MENU MAKER*
 ➪ _${prefix}sticker_
 ➪ _${prefix}fdeface_
-➪ _${prefix}emoji_*
+➪ _${prefix}emoji_
+➪ _${prefix}nulis_
 
 *MENU CONVERT*
 ➪ _${prefix}toimg_
@@ -585,9 +585,22 @@ case 'menu':
 ➪ _${prefix}fitnah_
 ➪ _${prefix}fitnahpc_
 ➪ _${prefix}teruskan_
-➪ _${prefix}tebakgambar
+➪ _${prefix}tebakgambar_
 ➪ _${prefix}caklontong_
-➪ _${prefix}waifu / milf / loli_ (get random image,kadang bug)
+
+*MENU GACHA*
+➪ _${prefix}loli_
+➪ _${prefix}neko_
+➪ _${prefix}waifu_
+➪ _${prefix}husbu_
+➪ _${prefix}elf_
+➪ _${prefix}exo_
+➪ _${prefix}bts_
+
+*MENU MEME*
+➪ _${prefix}meme_
+➪ _${prefix}memedark_
+➪ _${prefix}memeind_
 
 
 *MENU NSFW*
@@ -619,11 +632,11 @@ case 'menu':
  
 
 ▢ _*RYU*_ ▢`
-buttons = [{buttonId: `${prefix}owner`,buttonText:{displayText: 'OWNER'},type:1},{buttonId:`${prefix}ytadmin`,buttonText:{displayText:'SEWA BOT'},type:1}]
+buttons = [{buttonId: `${prefix}newmenu`,buttonText:{displayText: 'LIST NEW MENU'},type:1},{buttonId:`${prefix}ytadmin`,buttonText:{displayText:'SEWA BOT'},type:1}]
 
                buttonsMessage = {
                contentText: `${menu}`,
-               footerText: 'Versi: 1.0.9',
+               footerText: 'Versi: 1.1.0',
                buttons: buttons,
                headerType: 1
 }
@@ -641,6 +654,41 @@ buttons = [{buttonId: `${prefix}owner`,buttonText:{displayText: 'OWNER'},type:1}
                     .then((res) => hexa.sendMessage(from, '*Tuh Owner Ku', text, {quoted: res}))
                     
                 break
+                case 'newmenu':
+        var menuu = `*_「 NEW MENU」_*
+        
+*${prefix}bug  <lapor bug>
+​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​*${prefix}req  <request fitur
+*MENU GACHA*
+➪ _${prefix}loli_
+➪ _${prefix}neko_
+➪ _${prefix}waifu_
+➪ _${prefix}husbu_
+➪ _${prefix}elf_
+➪ _${prefix}exo_
+➪ _${prefix}bts_
+*MENU MEME*
+➪ _${prefix}meme_
+➪ _${prefix}memedark_
+➪ _${prefix}memeind_
+*MENU MAKER*
+➪ _${prefix}nulis_
+	
+_BEBERAPA FITUR BARU AKAN DIUPDATE LAGI_
+▢ _*RYU*_ ▢`
+
+buttons = [{buttonId: `${prefix}secretmenu`,buttonText:{displayText: 'SECRET MENU'},type:1}]
+
+               buttonsMessage = {
+               contentText: `${menuu}`,
+               footerText: 'Versi: 1.1.0',
+               buttons: buttons,
+               headerType: 1
+}
+
+          prep = await hexa.prepareMessageFromContent(from,{buttonsMessage},{quoted: mek})
+               hexa.relayWAMessage(prep)
+               break
    case 'shutdown':
            if (!mek.key.fromMe) return 
              reply(`Dada Kak...`)
@@ -660,6 +708,22 @@ case 'add':
 						reply('Gagal menambahkan target, mungkin karena di private')
 					}
 					break
+                    case 'secretmenu':
+                        var menuu = `*_「 SECRET MENU」_*
+_SECRET MENU BELUM TERSEDIA_`
+                
+                buttons = [{buttonId: `${prefix}owner`,buttonText:{displayText: 'OWNER'},type:1}]
+                
+                               buttonsMessage = {
+                               contentText: `${menuu}`,
+                               footerText: 'Versi: 1.1.0',
+                               buttons: buttons,
+                               headerType: 1
+                }
+                
+                          prep = await hexa.prepareMessageFromContent(from,{buttonsMessage},{quoted: mek})
+                               hexa.relayWAMessage(prep)
+                               break
  case 'ytadmin' :
                reply('Mau Sewa Bot Ke Grup Kamu?\n_LIST HARGA_\nSebulan\n10k Via Dana\n15k Via Pulsa\n\nTanya Tanya Langsung Ke Owner Aja Ya')
                break
@@ -1260,17 +1324,13 @@ case 'upswaudio':
             case 'waifu':
    case 'loli':
    case 'husbu':
-   case 'milf':
-   case 'cosplay':
-   case 'wallml':{
+   case 'elf':
+   case 'neko':
+    case 'exo':
+        case 'bts':{
     reply('Bentarr')
-    let wipu = (await axios.get(`https://raw.githubusercontent.com/Arya-was/endak-tau/main/${command}.json`)).data
-    let wipi = wipu[Math.floor(Math.random() * (wipu.length))]
-
-    fs.writeFileSync(`./image/anime/${sender}.jpeg`, await getBuffer(wipi))
-	  
-
-    const gambra = await hexa.prepareMessage(from, fs.readFileSync(`./image/anime/${sender}.jpeg`), MessageType.image, {thumbnail : null})
+    let wipu = (await getBuffer(`https://api.lolhuman.xyz/api/random/${command}?apikey=chadson`))
+    const gambra = await hexa.prepareMessage(from, wipu, MessageType.image, { thumbnail : null })
     const buttonsss = [{buttonId:`${prefix+command}`,buttonText: {displayText: '➡️ NEXT ➡️'}, type: 1}]
     const ButtonsMessages = {
     contentText: `Wangy Wangyyy`,
@@ -1280,34 +1340,83 @@ case 'upswaudio':
     imageMessage: gambra.message.imageMessage
     }
     await hexa.sendMessage(from, ButtonsMessages, MessageType.buttonsMessage, {quoted : mek})
-    fs.unlinkSync(`./image/anime/${sender}.jpeg`)
     }
     break
-		case 'solo':
-   case 'yuri':
-   case 'cosplay2':
-   case 'loli':{
-    reply('Mohon Menunggu')
-    let naked = (await axios.get(`https://raw.githubusercontent.com/Richard-hyco/ryu/main/${command}.json`)).data
-    let wipa = naked[Math.floor(Math.random() * (naked.length))]
-
-    fs.writeFileSync(`./image/${sender}.jpeg`, await getBuffer(wipa))
-	  
-
-    const gambrai = await hexa.prepareMessage(from, fs.readFileSync(`./image/${sender}.jpeg`), MessageType.image, {thumbnail : null})
-    const buttonsss = [{buttonId:`${prefix+command}`,buttonText: {displayText: 'NEXT '}, type: 1}]
+    case 'meme':
+        buffer = await getBuffer(`https://api.lolhuman.xyz/api/random/meme?apikey=chadson`)
+        reply (`Sabar...`)
+        const gambra = await hexa.prepareMessage(from, buffer, MessageType.image, { thumbnail : null})
+    const buttonsss = [{buttonId:`${prefix+command}`,buttonText: {displayText: '➡️ NEXT ➡️'}, type: 1}]
     const ButtonsMessages = {
-    contentText: `Ah Shid`,
+    contentText: `MEME`,
     buttons: buttonsss,
     footerText: `Klik Next Untuk Melanjutkan Ke Gambar Berikutnya`,
     headerType: 4,
-    imageMessage: gambrai.message.imageMessage
+    imageMessage: gambra.message.imageMessage
     }
     await hexa.sendMessage(from, ButtonsMessages, MessageType.buttonsMessage, {quoted : mek})
-    fs.unlinkSync(`./image/${sender}.jpeg`)
-    }
-    break
+        break
 
+            
+        case 'memeind':
+            bufferi = await getBuffer(`https://api.lolhuman.xyz/api/meme/memeindo?apikey=chadson`)
+            reply (`Sabar...`)
+            const gambrai = await hexa.prepareMessage(from, bufferi, MessageType.image, { thumbnail : null})
+        const buttonssss = [{buttonId:`${prefix+command}`,buttonText: {displayText: '➡️ NEXT ➡️'}, type: 1}]
+        const ButtonsMessagess = {
+        contentText: `MEME`,
+        buttons: buttonssss,
+        footerText: `Klik Next Untuk Melanjutkan Ke Gambar Berikutnya`,
+        headerType: 4,
+        imageMessage: gambrai.message.imageMessage
+        }
+        await hexa.sendMessage(from, ButtonsMessagess, MessageType.buttonsMessage, {quoted : mek})
+            break
+            case 'memedark':
+            bufferii = await getBuffer(`https://api.lolhuman.xyz/api/meme/memeindo?apikey=chadson`)
+            reply (`Sabar...`)
+            const gambraii = await hexa.prepareMessage(from, bufferii, MessageType.image, { thumbnail : null})
+        const buttonsssss = [{buttonId:`${prefix+command}`,buttonText: {displayText: '➡️ NEXT ➡️'}, type: 1}]
+        const ButtonsMessagesss = {
+        contentText: `MEME`,
+        buttons: buttonsssss,
+        footerText: `Klik Next Untuk Melanjutkan Ke Gambar Berikutnya`,
+        headerType: 4,
+        imageMessage: gambraii.message.imageMessage
+        }
+        await hexa.sendMessage(from, ButtonsMessagesss, MessageType.buttonsMessage, {quoted : mek})
+            break
+            case 'nulis':
+               if (args.length < 1) return reply(`${sender} Nulis Apa??`)
+               d = body.slice(6)
+               reply('Ryu Bot Sedang Menulis')
+               buffer = await getBuffer(`https://api.lolhuman.xyz/api/nulis?apikey=chadson&text=${d}`)
+               hexa.sendMessage(from, buffer, image, {caption: 'INI', quoted: mek})
+
+               break
+               case 'yuri':
+                case 'ero':
+                    case 'lewd':
+                        case 'solo':
+                            case 'anal':
+                                case 'pussy':
+                                    case 'hentai':
+                                        case 'eroyuri':  
+                                        case 'hololewd':  
+                                          
+            bufferi = await getBuffer(`https://api.lolhuman.xyz/api/random2/${command}?apikey=chadson`)
+            reply (`This Is Secret Menu`)
+            const gambrai8 = await hexa.prepareMessage(from, bufferi, MessageType.image, { thumbnail : null})
+        const buttonssss8 = [{buttonId:`${prefix+command}`,buttonText: {displayText: '➡️ NEXT ➡️'}, type: 1}]
+        const ButtonsMessagess8 = {
+        contentText: `AHHH`,
+        buttons: buttonssss8,
+        footerText: `Klik Next Untuk Melanjutkan Ke Gambar Berikutnya`,
+        headerType: 4,
+        imageMessage: gambrai8.message.imageMessage
+        }
+        await hexa.sendMessage(from, ButtonsMessagess8, MessageType.buttonsMessage, {quoted : mek})
+            break
 	case 'play':
         if (!isGroup) return reply(mess.only.group)
 			if (args.length === 0) return reply(`Kirim perintah *${prefix}play* _Judul lagu yang akan dicari_`)
@@ -1956,7 +2065,7 @@ hexa.cmd.on('asupan', async (data) => {
 						reply('1 aktif 0 no aktif')
 					}
 					break
-
+                   
                 case 'nhentai':   
                 if (args.length == 0) return reply(`Example: ${prefix + command} 12345`)
                 henid = args[0]
