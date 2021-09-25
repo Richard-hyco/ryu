@@ -2021,6 +2021,11 @@ hexa.cmd.on('asupan', async (data) => {
                   hasil = `Stalking Sukses!\n${teks} \n\n *Username* : _${anu.result.username}_ \n *Nama* : _${anu.result.fullname}_ \n *Jumlah Follower* : _${anu.result.followers}_ \n *Jumlah Following* : _${anu.result.following}_ \n *Jumlah Post* : _${anu.result.posts}_ \n *Biografi :* _${anu.result.bio}`
                  hexa.sendMessage(from, buffer, image, {quoted: mek, caption: hasil})
                 break 
+                case 'statusapi':
+                    api = await fetchJson('https://api.lolhuman.xyz/api/checkapikey?apikey=chadson')
+                    hasill = `STATUS RYU BOT\n\nTotal Request: _${api.result.requests}_\nHari Ini: _${api.result.today}_\nExpired Sampai: _${api.result.expired}_ `
+                    hexa.sendMessage(from, hasill, text)
+                    break
 
     case 'fb':
             if (!q) return reply('Linknya?')
