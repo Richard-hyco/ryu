@@ -1956,18 +1956,7 @@ hexa.cmd.on('asupan', async (data) => {
 						reply('1 aktif 0 no aktif')
 					}
 					break
-                    case 'solo':
-                        if (!isNsfw) return reply('Fitur Nsfw Belum Aktif Di Grup Ini')
-					hexa.updatePresence(from, Presence.composing) 
-					reply(`Mohon Menunggu`)
-				 
-				 data = fs.readFileSync('./ryu/solo.js');
-                 jsonData = JSON.parse(data);
-                 randIndex = Math.floor(Math.random() * jsonData.length);
-                 randKey = jsonData[randIndex];
-                 naked = await getBuffer(randKey.result)
-                 hexa.sendMessage(from, naked, image, {quoted: mek, caption: ' *SHE NEED YOUR F*CK*'})
-				break
+
                 case 'nhentai':   
                 if (args.length == 0) return reply(`Example: ${prefix + command} 12345`)
                 henid = args[0]
