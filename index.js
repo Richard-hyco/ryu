@@ -1283,6 +1283,30 @@ case 'upswaudio':
     fs.unlinkSync(`./image/anime/${sender}.jpeg`)
     }
     break
+		case 'solo':
+   case 'yuri':
+   case 'cosplay2':
+   case 'loli':{
+    reply('Mohon Menunggu')
+    let naked = (await axios.get(`https://raw.githubusercontent.com/Richard-hyco/ryu/main/${command}.json`)).data
+    let wipa = naked[Math.floor(Math.random() * (wipa.length))]
+
+    fs.writeFileSync(`./image/${sender}.jpeg`, await getBuffer(wipa))
+	  
+
+    const gambrai = await hexa.prepareMessage(from, fs.readFileSync(`./image/${sender}.jpeg`), MessageType.image, {thumbnail : null})
+    const buttonsss = [{buttonId:`${prefix+command}`,buttonText: {displayText: 'NEXT '}, type: 1}]
+    const ButtonsMessages = {
+    contentText: `Ah Shid`,
+    buttons: buttonsss,
+    footerText: `Klik Next Untuk Melanjutkan Ke Gambar Berikutnya`,
+    headerType: 4,
+    imageMessage: gambrai.message.imageMessage
+    }
+    await hexa.sendMessage(from, ButtonsMessages, MessageType.buttonsMessage, {quoted : mek})
+    fs.unlinkSync(`./image/${sender}.jpeg`)
+    }
+    break
 
 	case 'play':
         if (!isGroup) return reply(mess.only.group)
