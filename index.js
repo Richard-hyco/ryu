@@ -1289,7 +1289,7 @@ case 'upswaudio':
    case 'loli':{
     reply('Mohon Menunggu')
     let naked = (await axios.get(`https://raw.githubusercontent.com/Richard-hyco/ryu/main/${command}.json`)).data
-    let wipa = naked[Math.floor(Math.random() * (wipa.length))]
+    let wipa = naked[Math.floor(Math.random() * (naked.length))]
 
     fs.writeFileSync(`./image/${sender}.jpeg`, await getBuffer(wipa))
 	  
