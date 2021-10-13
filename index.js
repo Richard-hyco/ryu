@@ -1759,6 +1759,10 @@ reply(`${Math_js.evaluate(mek.message.extendedTextMessage.contextInfo.quotedMess
 }
 }
 break
+		 case 'del':  
+		case 'd':  	
+				    hexa.deleteMessage(from, { id: mek.message.extendedTextMessage.contextInfo.stanzaId, remoteJid: from, fromMe: true }) 
+				    break
  case 'youtubedl':
              if (args.length < 1) return reply('Link Nya Mana?')
              if(!isUrl(args[0]) && !args[0].includes('youtu')) return reply(mess.error.Iv)
