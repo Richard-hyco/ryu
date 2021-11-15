@@ -63,6 +63,7 @@ const { y2mateA, y2mateV } = require('./lib/y2mate')
 const { jadibot, stopjadibot, listjadibot } = require('./lib/jadibot')
 const tebakgambar = JSON.parse(fs.readFileSync('./tebakgambar.json'))
 const nsfw = JSON.parse(fs.readFileSync('./nsfw.json'))
+const welkom = JSON.parse(fs.readFileSync('./ryu/welkom.json'))
 const premium = JSON.parse(fs.readFileSync('./buyer.json'))
 
 let _scommand = JSON.parse(fs.readFileSync('./database/scommand.json'))
@@ -150,6 +151,7 @@ module.exports = hexa = async (hexa, mek) => {
 		const isOwner = ownerNumber.includes(sender)
         const isNsfw = isGroup ? nsfw.includes(from) : false
         const isPrem = premium.includes(sender)
+        const isWelkom = isGroup ? welkom.includes(from) : false
         const isVote = isGroup ? voting.includes(from) : false
         const conts = mek.key.fromMe ? hexa.user.jid : hexa.contacts[sender] || { notify: jid.replace(/@.+/, '') }
         if (isCmd) cmdadd()
@@ -235,6 +237,44 @@ const textImg = (teks) => {
                                     reply("Jawaban Salah Coba Lagi!")
                                 }
                             }
+                            hexa.on('group-participants-update', async (anu) => {
+                                if (!welkom.includes(anu.jid)) return
+                                try {
+                                    const mdata = await hexa.groupMetadata(anu.jid)
+                                    console.log(anu)
+                                    if (anu.action == 'add') {
+                                        num = anu.participants[0]
+                                        try {
+                                            ppimg = await hexa.getProfilePicture(`${anu.participants[0].split('@')[0]}@c.us`)
+                                        } catch {
+                                            ppimg = 'https://i0.wp.com/www.gambarunik.id/wp-content/uploads/2019/06/Top-Gambar-Foto-Profil-Kosong-Lucu-Tergokil-.jpg'
+                                        }
+                                        teks = `Hallo @${num.split('@')[0]}\Selamat datang di group *${mdata.subject}* yang betah ya di sini jangan lupa intro 
+┏━━━━━━━━━━━━━━━━━━━━
+┃ HAY SAYA BOT SALAM KENAL
+┃ YA, KETIK ${prefix}menu
+┃ UNTUK MELIHAT MENU BOT
+┣━━━━━━━━━━━━━━━━━━━━
+┃ NAMA    :@${num.split('@')[0]}
+┃ Nomer : wa.me/@${num.split('@')[0]}
+┗━━━━━━━━━━━━━━━━━━━━`
+                                        let buff = await getBuffer(ppimg)
+                                        hexa.sendMessage(mdata.id, buff, MessageType.image, {caption: teks, contextInfo: {"mentionedJid": [num]}})
+                                    } else if (anu.action == 'remove') {
+                                        num = anu.participants[0]
+                                        try {
+                                            ppimg = await hexa.getProfilePicture(`${num.split('@')[0]}@c.us`)
+                                        } catch {
+                                            ppimg = 'https://i0.wp.com/www.gambarunik.id/wp-content/uploads/2019/06/Top-Gambar-Foto-Profil-Kosong-Lucu-Tergokil-.jpg'
+                                        }
+                                        teks = `Sayonara @${num.split('@')[0]} Jangan Lupa Untuk Selalu Tersenyum Ya😊`
+                                        let buff = await getBuffer(ppimg)
+                                        hexa.sendMessage(mdata.id, buff, MessageType.image, {caption: teks, contextInfo: {"mentionedJid": [num]}})
+                                    }
+                                } catch (e) {
+                                    console.log('Error : %s', color(e, 'red'))
+                                }
+                            })
 const fakevn = {
 	 key: { 
           fromMe: false,
@@ -392,6 +432,137 @@ const fvid = {
                     fs.unlinkSync(filename)
                 });
             }   
+           
+            hexa.on('message-update', async (mek) => {
+                try {
+                //Update By Mzailani & Adi Official
+               const from = mek.key.remoteJid
+                const messageStubType = WA_MESSAGE_STUB_TYPES[mek.messageStubType] || 'MESSAGE'
+                const dataRevoke = JSON.parse(fs.readFileSync('./src/gc-revoked.json'))
+                const dataCtRevoke = JSON.parse(fs.readFileSync('./src/ct-revoked.json'))
+                const dataBanCtRevoke = JSON.parse(fs.readFileSync('./src/ct-revoked-banlist.json'))
+                const sender = mek.key.fromMe ? hexa.user.jid : mek.key.remoteJid.endsWith('@g.us') ? mek.participant : mek.key.remoteJid
+                const isRevoke = mek.key.remoteJid.endsWith('@s.whatsapp.net') ? true : mek.key.remoteJid.endsWith('@g.us') ? dataRevoke.includes(from) : false
+                const isCtRevoke = mek.key.remoteJid.endsWith('@g.us') ? true : dataCtRevoke.data ? true : false
+                const isBanCtRevoke = mek.key.remoteJid.endsWith('@g.us') ? true : !dataBanCtRevoke.includes(sender) ? true : false
+                if (messageStubType == 'REVOKE') {
+                    console.log(`Status untuk grup : ${!isRevoke}\nStatus semua kontak : ${!isCtRevoke}\nStatus kontak dikecualikan : ${!isBanCtRevoke}`)
+                    if (!isRevoke) return
+                    if (!isCtRevoke) return
+                    if (!isBanCtRevoke) return
+                    const from = mek.key.remoteJid
+                    const isGroup = mek.key.remoteJid.endsWith('@g.us') ? true : false
+                    let int
+                    let infoMSG = JSON.parse(fs.readFileSync('./src/.dat/msg.data.json'))
+                    const id_deleted = mek.key.id
+                    const conts = mek.key.fromMe ? hexa.user.jid : hexa.contacts[sender] || { notify: jid.replace(/@.+/, '') }
+                    const pushname = mek.key.fromMe ? hexa.user.name : conts.notify || conts.vname || conts.name || '-'
+                    const opt4tag = {
+                        contextInfo: { mentionedJid: [sender] }
+                    }
+                    for (let i = 0; i < infoMSG.length; i++) {
+                        if (infoMSG[i].key.id == id_deleted) {
+                            const dataInfo = infoMSG[i]
+                            const type = Object.keys(infoMSG[i].message)[0]
+                            const timestamp = infoMSG[i].messageTimestamp
+                            int = {
+                                no: i,
+                                type: type,
+                                timestamp: timestamp,
+                                data: dataInfo
+                            }
+                        }
+                    }
+                    const index = Number(int.no)
+                    const body = int.type == 'conversation' ? infoMSG[index].message.conversation : int.type == 'extendedTextMessage' ? infoMSG[index].message.extendedTextMessage.text : int.type == 'imageMessage' ? infoMSG[index].message.imageMessage.caption : int.type == 'stickerMessage' ? 'Sticker' : int.type == 'audioMessage' ? 'Audio' : int.type == 'videoMessage' ? infoMSG[index].videoMessage.caption : infoMSG[index]
+                    const mediaData = int.type === 'extendedTextMessage' ? JSON.parse(JSON.stringify(int.data).replace('quotedM', 'm')).message.extendedTextMessage.contextInfo : int.data
+                    var itsme = `${numbernye}@s.whatsapp.net`
+                        var split = `${fake}`
+                        // var taged = mek.message.extendedTextMessage.contextInfo.mentionedJid[0]
+                        var selepbot72 = {
+                            contextInfo: {
+                                participant: itsme,
+                                quotedMessage: {
+                                    extendedTextMessage: {
+                                        text: split,
+                                    }
+                                }
+                            }
+                        }
+                    if (int.type == 'conversation' || int.type == 'extendedTextMessage') {
+                        const strConversation = `		 「 *ANTI-DELETE* 」
+        
+        - *Nama :* *${pushname}* 
+        - *Nomer :* ${sender.replace('@s.whatsapp.net', '')}
+        - *Tipe :* Text
+        - *Waktu :* *${moment.unix(int.timestamp).format('HH:mm:ss')}*
+        - *Tanggal :* *${moment.unix(int.timestamp).format('DD/MM/YYYY')}*
+        - *Pesan :* *${body ? body : '-'}*`
+                        hexa.sendMessage(from, strConversation, MessageType.text, selepbot72)
+                    } else if (int.type == 'stickerMessage') {
+                        var itsme = `${numbernye}@s.whatsapp.net`
+                            var split = `${fake}`
+                            const pingbro23 = {
+                                contextInfo: {
+                                    participant: itsme,
+                                    quotedMessage: {
+                                        extendedTextMessage: {
+                                            text: split,
+                                        }
+                                    }
+                                }
+                            }
+                        const filename = `${sender.replace('@s.whatsapp.net', '')}-${moment().unix()}`
+                        const savedFilename = await hexa.downloadAndSaveMediaMessage(int.data, `./media/sticker/${filename}`);
+                        const strConversation = `		 「 *ANTI-DELETE* 」
+        
+        - *Nama :* *${pushname}* 
+        - *Nomer :* ${sender.replace('@s.whatsapp.net', '')}
+        - *Tipe :* *Sticker*
+        - *Waktu :* *${moment.unix(int.timestamp).format('HH:mm:ss')}*
+        - *Tanggal :* *${moment.unix(int.timestamp).format('DD/MM/YYYY')}*`
+        
+                        const buff = fs.readFileSync(savedFilename)
+                        hexa.sendMessage(from, strConversation, MessageType.text, opt4tag)
+                        hexa.sendMessage(from, buff, MessageType.sticker, pingbro23)
+                        // console.log(stdout)
+                        fs.unlinkSync(savedFilename)
+        
+                    } else if (int.type == 'imageMessage') {
+                        var itsme = `${numbernye}@s.whatsapp.net`
+                            var split = `${fake}`
+                            const pingbro22 = {
+                                contextInfo: {
+                                    participant: itsme,
+                                    quotedMessage: {
+                                        extendedTextMessage: {
+                                            text: split,
+                                        }
+                                    }
+                                }
+                            }
+                        const filename = `${sender.replace('@s.whatsapp.net', '')}-${moment().unix()}`
+                        const savedFilename = await hexa.downloadAndSaveMediaMessage(int.data, `./media/revoke/${filename}`);
+                        const buff = fs.readFileSync(savedFilename)
+                        const strConversation = `	 「 *ANTI-DELETE* 」
+        
+        - *Nama :* *${pushname}* 
+        - *Nomer :* ${sender.replace('@s.whatsapp.net', '')}
+        - *Tipe :* Image
+        - *Waktu :* *${moment.unix(int.timestamp).format('HH:mm:ss')}*
+        - *Tanggal :* *${moment.unix(int.timestamp).format('DD/MM/YYYY')}*
+        - *Pesan :* ${body ? body : '-'}\`\`\``
+                        hexa.sendMessage(from, buff, MessageType.image, { contextInfo: { mentionedJid: [sender] }, caption: strConversation })
+                        fs.unlinkSync(savedFilename)
+                    }
+                }
+            } catch (e) {
+                console.log('Message : %s', color(e, 'green'))
+                // console.log(e)
+            }
+        })
+        
+           
 //FUNCTION
             cekafk(afk)
             if (!mek.key.remoteJid.endsWith('@g.us') && offline){
@@ -647,6 +818,110 @@ buttons = [{buttonId: `${prefix}newmenu`,buttonText:{displayText: 'LIST NEW MENU
                case 'nsfwmenu':
                    reply('solo\nnhentai with code\nMenu Nsfw Baru 2')
                    break
+                   case 'antidelete':
+					
+				
+				const dataRevoke = JSON.parse(fs.readFileSync('./src/gc-revoked.json'))
+				
+				const dataCtRevoke = JSON.parse(fs.readFileSync('./src/ct-revoked.json'))
+				
+				const dataBanCtRevoke = JSON.parse(fs.readFileSync('./src/ct-revoked-banlist.json'))
+				
+				const isRevoke = dataRevoke.includes(from)
+				
+				const isCtRevoke = dataCtRevoke.data
+				
+				const isBanCtRevoke = dataBanCtRevoke.includes(sender) ? true : false
+				
+				const argz = body.split(' ')
+				
+				if (argz.length === 1) return hexa.sendMessage(from, `Penggunaan fitur antidelete :\n\n*${prefix}antidelete [aktif/mati]* (Untuk grup)\n*${prefix}antidelete [ctaktif/ctmati]* (untuk semua kontak)\n*${prefix}antidelete banct 628558xxxxxxx* (banlist kontak)`, MessageType.text)
+				
+				if (argz[1] == 'aktif') {
+				
+					if (isGroup) {
+					
+						if (isRevoke) return hexa.sendMessage(from, `Antidelete telah diaktifkan di grup ini sebelumnya!`, MessageType.text)
+						
+						dataRevoke.push(from)
+						
+						fs.writeFileSync('./src/gc-revoked.json', JSON.stringify(dataRevoke, null, 2))
+						
+						hexa.sendMessage(from, `*Succes Enable Antidelete Grup!*`, MessageType.text)
+						
+					} else if (!isGroup) {
+					
+						hexa.sendMessage(from, `Untuk kontak penggunaan *${prefix}antidelete ctaktif*`, MessageType.text)
+						
+					}
+					
+				} else if (argz[1] == 'ctaktif') {
+				
+					if (!isGroup) {
+					
+						if (isCtRevoke) return hexa.sendMessage(from, `Antidelete telah diaktifkan di semua kontak sebelumnya!`, MessageType.text)
+						
+						dataCtRevoke.data = true
+						
+						fs.writeFileSync('./src/ct-revoked.json', JSON.stringify(dataCtRevoke, null, 2))
+						
+						hexa.sendMessage(from, `Antidelete diaktifkan disemua kontak!`, MessageType.text)
+						
+					} else if (isGroup) {
+					
+						hexa.sendMessage(from, `Untuk grup penggunaan *${prefix}antidelete aktif*`, MessageType.text)
+						
+					}
+					
+				} else if (argz[1] == 'banct') {
+				
+					if (isBanCtRevoke) return hexa.sendMessage(from, `kontak ini telah ada di database banlist!`, MessageType.text)
+					
+					if (argz.length === 2 || argz[2].startsWith('0')) return hexa.sendMessage(from, `Masukan nomer diawali dengan 62! contoh 62859289xxxxx`, MessageType.text)
+					
+					dataBanCtRevoke.push(argz[2] + '@s.whatsapp.net')
+					
+					fs.writeFileSync('./src/ct-revoked-banlist.json', JSON.stringify(dataBanCtRevoke, null, 2))
+					
+					hexa.sendMessage(from, `Kontak ${argz[2]} telah dimasukan ke banlist antidelete secara permanen!`, MessageType.text)
+					
+				} else if (argz[1] == 'mati') {
+				
+					if (isGroup) {
+					
+						const index = dataRevoke.indexOf(from)
+						
+						dataRevoke.splice(index, 1)
+						
+						fs.writeFileSync('./src/gc-revoked.json', JSON.stringify(dataRevoke, null, 2))
+						
+						hexa.sendMessage(from, `*Succes disable Antidelete Grup!*`, MessageType.text)
+						
+					} else if (!isGroup) {
+					
+						hexa.sendMessage(from, `Untuk kontak penggunaan *${prefix}antidelete ctmati*`, MessageType.text)
+						
+					}
+					
+				} else if (argz[1] == 'ctmati') {
+				
+					if (!isGroup) {
+					
+						dataCtRevoke.data = false
+						
+						fs.writeFileSync('./src/ct-revoked.json', JSON.stringify(dataCtRevoke, null, 2))
+						
+						hexa.sendMessage(from, `Antidelete dimatikan disemua kontak!`, MessageType.text)
+						
+					} else if (isGroup) {
+					
+						hexa.sendMessage(from, `Untuk grup penggunaan *${prefix}antidelete mati*`, MessageType.text)
+						
+					}
+					
+				}
+                break
+
  case 'owner':
             case 'developer':
             case 'author':
@@ -654,6 +929,21 @@ buttons = [{buttonId: `${prefix}newmenu`,buttonText:{displayText: 'LIST NEW MENU
                     .then((res) => hexa.sendMessage(from, '*Tuh Owner Ku', text, {quoted: res}))
                     
                 break
+                case 'welcome':
+					if (args.length < 1) return reply('Boo :𝘃')
+					if (Number(args[0]) === 1) {
+						if (isWelkom) return reply('*SUDAH AKTIF* !!!')
+						welkom.push(from)
+						fs.writeFileSync('./ryu/welkom.json', JSON.stringify(welkom))
+						reply('❬ SUKSES ❭ Mengaktifkan fitur Welcome/Left di grub ini')
+					} else if (Number(args[0]) === 0) {
+						welkom.splice(from, 1)
+						fs.writeFileSync('./ryu/welkom.json', JSON.stringify(welkom))
+						reply('❬ SUKSES ❭ Menonaktifkan Welcome/Left di grub ini')
+					} else {
+						reply(ind.satukos())
+					}
+					break
                 case 'newmenu':
         var menuu = `*_「 NEW MENU」_*
         
@@ -754,6 +1044,10 @@ case 'buttons1':
               reply('tag stickenya')
 }
               break
+               case 'del':  
+		case 'd':  	
+				    hexa.deleteMessage(from, { id: mek.message.extendedTextMessage.contextInfo.stanzaId, remoteJid: from, fromMe: true }) 
+				    break
        case 'delcmd':
          if (!mek.key.fromMe) return 
               if (!isQuotedSticker) return reply(`Penggunaan : ${command} tagsticker`)
@@ -869,7 +1163,7 @@ break
             case 'lirik':   
                 		reply('Tunggu...')
 					teks = body.slice(7)
-					anu = await fetchJson(`https://api.lolhuman.xyz/api/lirik?apikey=chadson&query=${teks}`, {method: 'get'})
+					anu = await fetchJson(`https://api.dapuhy.ga/api/socialmedia/liriklagu?query=${teks}&apikey=icad21`, {method: 'get'})
 					reply('Lirik dari lagu '+teks+' adalah :\n\n'+anu.result) 
 					break 
     case 'otaku':
@@ -1751,7 +2045,7 @@ hexa.updatePresence(from, Presence.composing)
 
 					break
                     case 'kalkulator':
-case 'kalku':{
+case 'k':{
 if (mek.message.extendedTextMessage === undefined || mek.message.extendedTextMessage === null) {
 reply(`${Math_js.evaluate(q.replace("×","*").replace("x","*").replace("X","*").replace("÷","/").replace(":","/").replace("kali","*").replace("bagi","/").replace("tambah","+").replace("tamba","+").replace("kurang","-").replace("kurangi","-"))}`)
 } else {
@@ -1759,10 +2053,6 @@ reply(`${Math_js.evaluate(mek.message.extendedTextMessage.contextInfo.quotedMess
 }
 }
 break
-		 case 'del':  
-		case 'd':  	
-				    hexa.deleteMessage(from, { id: mek.message.extendedTextMessage.contextInfo.stanzaId, remoteJid: from, fromMe: true }) 
-				    break
  case 'youtubedl':
              if (args.length < 1) return reply('Link Nya Mana?')
              if(!isUrl(args[0]) && !args[0].includes('youtu')) return reply(mess.error.Iv)
@@ -1958,6 +2248,12 @@ hexa.cmd.on('asupan', async (data) => {
 					}
 					reply('SUKSES MENGHAPUS SEMUA CHAT')
 					break
+                    case 'del':
+			case 'd':
+			
+			if (!isGroup) return reply('Only Group!')
+					hexa.deleteMessage(from, { id: mek.message.extendedTextMessage.contextInfo.stanzaId, remoteJid: from, fromMe: true })
+					break
  	case 'tiktok':
         if (!isGroup) return reply(mess.only.group)
  		if (!isUrl(args[0]) && !args[0].includes('tiktok.com')) return reply(mess.Iv)
@@ -2019,10 +2315,10 @@ hexa.cmd.on('asupan', async (data) => {
             case 'igstalk':
               
                   teks = body.slice(9)
-                  anu = await fetchJson(`https://api.lolhuman.xyz/api/stalkig/${teks}?apikey=chadson`, {method: 'get'})
+                  anu = await fetchJson(`https://api.dapuhy.ga/api/socialmedia/igstalk?username=${text}&apikey=icad21`, {method: 'get'})
                   reply('「❗」Sabar Lagi Stalking IG nya kak')
-                  buffer = await getBuffer(anu.result.photo_profile)
-                  hasil = `Stalking Sukses!\n${teks} \n\n *Username* : _${anu.result.username}_ \n *Nama* : _${anu.result.fullname}_ \n *Jumlah Follower* : _${anu.result.followers}_ \n *Jumlah Following* : _${anu.result.following}_ \n *Jumlah Post* : _${anu.result.posts}_ \n *Biografi :* _${anu.result.bio}`
+                  buffer = await getBuffer(anu.result.profilePic)
+                  hasil = `Stalking Sukses!\n${teks} \n\n *Username* : _${anu.result.username}_ \n *Nama* : _${anu.result.fullname}_ \n *Jumlah Follower* : _${anu.result.followers}_ \n *Jumlah Following* : _${anu.result.following}_\n *Biografi :* _${anu.result.bio}`
                  hexa.sendMessage(from, buffer, image, {quoted: mek, caption: hasil})
                 break 
                 case 'statusapi':
@@ -2115,7 +2411,7 @@ hexa.cmd.on('asupan', async (data) => {
               owgi = await hexa.downloadAndSaveMediaMessage(ted)
               tels = body.slice(10)
               anu = await imgbb("6c98ffd08e2e1d52c8ab0813659c647f", owgi)
-              hehe = await getBuffer(`https://api.lolhuman.xyz/api/removebg?apikey=chadson&img=${anu.display_url}`)
+              hehe = await getBuffer(`https://api.dapuhy.ga/api/canvas/removebg?img${anu.display_url}&apikey=icad21`)
              //hexa.sendMessage(from, hehe, image, {quoted: mek})
              hexa.sendMessage(from, hehe, image, { quoted: mek, mimetype: Mimetype.png, filename: `nih.png` })
             } else {
@@ -2123,7 +2419,7 @@ hexa.cmd.on('asupan', async (data) => {
             }
             } catch (e) {
                                 console.log(`Error :`, color(e,'red'))
-                                reply('*ERROR*')
+                                reply('*error saat mengupload file,coba lagi*')
                             }
                             
             break
