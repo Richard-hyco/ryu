@@ -63,7 +63,6 @@ const { y2mateA, y2mateV } = require('./lib/y2mate')
 const { jadibot, stopjadibot, listjadibot } = require('./lib/jadibot')
 const tebakgambar = JSON.parse(fs.readFileSync('./tebakgambar.json'))
 const nsfw = JSON.parse(fs.readFileSync('./nsfw.json'))
-const welkom = JSON.parse(fs.readFileSync('./ryu/welkom.json'))
 const premium = JSON.parse(fs.readFileSync('./buyer.json'))
 
 let _scommand = JSON.parse(fs.readFileSync('./database/scommand.json'))
